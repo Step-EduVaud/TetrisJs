@@ -2,8 +2,11 @@ const grid = document.getElementById("grid");
 const largeur = 10;
 const hauteur = 20;
 
-let positionX = 4;
-let positionY = 1;
+//Nombre random entre 0 et 10
+const numRandomv2 = Math.floor(Math.random() * (8 - 1)) + 1;
+
+let positionX = numRandomv2;
+let positionY = 0;
 
 //Nombre random entre 0 et 4
 const numRandom = Math.floor(Math.random() * 5);
@@ -108,17 +111,17 @@ const cells = document.querySelectorAll(".cell");
 function draw() {
   for (
     let index = 0;
-    index < form[numForm][numRotation].length;
+    index < form[numRandom][numRotation].length;
     index++ //Lignes
   ) {
     for (
       let jindex = 0;
-      jindex < form[numForm][numRotation][index].length;
+      jindex < form[numRandom][numRotation][index].length;
       jindex++ //Colonnes
     ) {
-      if (form[numForm][numRotation][index][jindex] === 1) {
+      if (form[numRandom][numRotation][index][jindex] === 1) {
         const cellIndex = (positionY + index) * largeur + (positionX + jindex);
-        cells[cellIndex].style.backgroundColor = couleurList[numForm];
+        cells[cellIndex].style.backgroundColor = couleurList[numRandom];
       }
     }
   }
