@@ -6,7 +6,7 @@ const hauteur = 20;
 const numRandomv2 = Math.floor(Math.random() * (8 - 1)) + 1;
 
 let positionX = numRandomv2;
-let positionY = 0;
+let positionY = -1;
 
 //Nombre random entre 0 et 4
 const numRandom = Math.floor(Math.random() * 5);
@@ -57,9 +57,9 @@ form[2] = [
     [1, 1, 0],
   ],
   [
-    [0, 0, 0],
     [0, 0, 1],
     [1, 1, 1],
+    [0, 0, 0],
   ],
   [
     [0, 1, 1],
@@ -103,8 +103,6 @@ form[4] = [
   ],
 ];
 
-var couleur;
-
 const cells = document.querySelectorAll(".cell");
 
 /// Dessiner la forme
@@ -139,5 +137,40 @@ function moveDown() {
   draw();
 }
 
+// Gestion des colisions sur l'axe horizentale
+function canMove(dx) {
+  const carré = form[numRandom][numRotation];
+  //Ligne
+  for (let i = 0; i < carré.length; i++) {
+    //Colonne
+    for (let j = 0; j < carré[i].length; j++) {
+      if (carré[i][j] === 1) {
+        if (positionX + j + dx >= largeur || positionX + j + dx < 0)
+          return false;
+      }
+    }
+  }
+  return true;
+}
+
 //Chaque interval de 0.6sec, appel de la fonction moveDown ce qui fait descendre
 setInterval(moveDown, 600);
+
+//Gestion des touches
+document.addEventListener("keydown", function (event) {
+  switch (event.key) {
+    case "ArrowLeft":
+      if (canMove(-1)) {
+        clearGrid();
+        positionX--;
+        break;
+      }
+
+    case "ArrowRight":
+      if (canMove(1)) {
+        clearGrid();
+        positionX++;
+        break;
+      }
+  }
+});
