@@ -21,6 +21,11 @@ for (let i = 0; i < largeur * hauteur; i++) {
   grid.appendChild(cell);
 }
 
+let logicGrid = new Array(hauteur);
+for (let i = 0; i < hauteur; i++) {
+  logicGrid[i] = new Array(largeur).fill(0);
+}
+
 let form = new Array();
 //Carré
 form[0] = [
@@ -132,20 +137,25 @@ restartButton.addEventListener("click", () => {
 
 /// Dessiner la forme
 function draw() {
-  for (
-    let index = 0;
-    index < form[numRandom][numRotation].length;
-    index++ //Lignes
-  ) {
-    for (
-      let jindex = 0;
-      jindex < form[numRandom][numRotation][index].length;
-      jindex++ //Colonnes
-    ) {
-      if (form[numRandom][numRotation][index][jindex] === 1) {
-        const cellIndex = (positionY + index) * largeur + (positionX + jindex);
-        if (cellIndex >= 0 && cellIndex < cells.length) {
-          cells[cellIndex].style.backgroundColor = couleurList[numRandom];
+  clearGrid;
+  for (let i = 0; i < hauteur; i++) {
+    for (let j = 0; j < largeur; j++) {
+      if (logicGrid[i][j] != 0) {
+        const cellIndex = i * largeur + j;
+        cells[cellIndex].style.backgroundColor =
+          couleurList[logicGrid[i][j] - 1];
+      }
+    }
+  }
+  const carré = form[numRandom][numRotation];
+  for (let i = 0; i < carré.length; i++) {
+    for (let j = 0; j < carré[i].length; j++) {
+      if (carré[i][j] === 1) {
+        const x = positionX + j;
+        const y = positionY + i;
+        if (x >= 0 && x < largeur && y >= 0 && y < hauteur) {
+          const cellIndex = y * largeur + x;
+          cells[cellIndex].style.backgroundColor = couleurList[numRandom - 1];
         }
       }
     }
