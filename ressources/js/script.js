@@ -204,7 +204,6 @@ function rotation() {
 }
 
 //Chaque interval de 0.6sec, appel de la fonction moveDown ce qui fait descendre
-// Utiliser `gameInterval` pour pouvoir le contrôler depuis `restart()`
 if (!gameInterval) gameInterval = setInterval(moveDown, 600);
 
 //Gestion des touches
